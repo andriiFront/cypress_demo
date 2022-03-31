@@ -2,19 +2,19 @@
 
 describe('Sign Up page', () => {
   beforeEach(() => {
-    cy.visit('/#/register')
+    cy.visit('/register')
   });
 
   it('should allow to register a new user', () => {
     const { email, password, username } = generateUser();
 
-    cy.get('[placeholder = "Username"]')
+    cy.findByPlaceholder('Username')
       .type(username);
 
-    cy.get('[placeholder = "Email"]')
+    cy.findByPlaceholder('Email')
       .type(email);
 
-    cy.get('[placeholder = "Password"]')
+    cy.findByPlaceholder('Password')
       .type(password);
 
     cy.contains('.btn', 'Sign up')
@@ -23,8 +23,7 @@ describe('Sign Up page', () => {
     cy.get('.swal-modal')
       .should('contain.text', 'Your registration was successful!')
 
-    cy.url()
-      .should('equal', Cypress.config().baseUrl + '/#/');
+    cy.assertPageUrl('/');
   });
 
   it('should not allow to register with  an existing email', () => {
@@ -36,13 +35,13 @@ describe('Sign Up page', () => {
       password
     });
 
-    cy.get('[placeholder = "Username"]')
-      .type(username + '_new');
+    cy.findByPlaceholder('Username')
+      .type(username);
 
-    cy.get('[placeholder = "Email"]')
+    cy.findByPlaceholder('Email')
       .type(email);
 
-    cy.get('[placeholder = "Password"]')
+    cy.findByPlaceholder('Password')
       .type(password);
 
     cy.contains('.btn', 'Sign up')
