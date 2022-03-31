@@ -8,12 +8,13 @@ describe('Sign Up page', () => {
   it('should allow to register a new user', () => {
     const randomNumber = Math.random().toString().slice(2);
     const userName = `test_user-${randomNumber}`;
+    const email = `${userName}@mail.com`;
 
     cy.get('[placeholder = "Username"]')
       .type(userName);
 
     cy.get('[placeholder = "Email"]')
-      .type(`${userName}@mail.com`);
+      .type(email);
 
     cy.get('[placeholder = "Password"]')
       .type('Test1234');
@@ -22,6 +23,9 @@ describe('Sign Up page', () => {
       .click();
 
     cy.get('.swal-modal')
-      .should('contain.text', 'Your registration was successfull')
+      .should('contain.text', 'Your registration was successful!')
+
+    cy.url()
+      .should('equal', Cypress.config().baseUrl + '/');
   });
 });
