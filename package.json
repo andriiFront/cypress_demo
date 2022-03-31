@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/andriiFront/cypress_demo/issues"
   },
-  "homepage": "https://github.com/andriiFront/cypress_demo#readme"
+  "homepage": "https://github.com/andriiFront/cypress_demo#readme",
+  "dependencies": {
+    "cypress": "^9.5.3"
+  }
 }
