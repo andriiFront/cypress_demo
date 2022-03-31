@@ -2,22 +2,20 @@
 
 describe('Sign Up page', () => {
   beforeEach(() => {
-    cy.visit('/register')
+    cy.visit('/#/register')
   });
 
   it('should allow to register a new user', () => {
-    const randomNumber = Math.random().toString().slice(2);
-    const userName = `test_user-${randomNumber}`;
-    const email = `${userName}@mail.com`;
+    const { email, password, username } = generateUser();
 
     cy.get('[placeholder = "Username"]')
-      .type(userName);
+      .type(username);
 
     cy.get('[placeholder = "Email"]')
       .type(email);
 
     cy.get('[placeholder = "Password"]')
-      .type('Test1234');
+      .type(password);
 
     cy.contains('.btn', 'Sign up')
       .click();
@@ -26,6 +24,31 @@ describe('Sign Up page', () => {
       .should('contain.text', 'Your registration was successful!')
 
     cy.url()
-      .should('equal', Cypress.config().baseUrl + '/');
+      .should('equal', Cypress.config().baseUrl + '/#/');
+  });
+
+  it('should not allow to register with  an existing email', () => {
+    const { email, password, username } = generateUser();
+
+    cy.request('POST', '/users', {
+      email,
+      username,
+      password
+    });
+
+    cy.get('[placeholder = "Username"]')
+      .type(username + '_new');
+
+    cy.get('[placeholder = "Email"]')
+      .type(email);
+
+    cy.get('[placeholder = "Password"]')
+      .type(password);
+
+    cy.contains('.btn', 'Sign up')
+      .click();
+
+    cy.get('.swal-modal')
+      .should('contain.text', 'Email already taken.')
   });
 });

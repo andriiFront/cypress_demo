@@ -19,5 +19,8 @@
   "homepage": "https://github.com/andriiFront/cypress_demo#readme",
   "dependencies": {
     "cypress": "^9.5.3"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^6.1.1"
   }
 }
