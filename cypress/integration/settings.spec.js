@@ -2,20 +2,16 @@
 
 describe('Settings page', () => {
   beforeEach(() => {
-    cy.visit('/login');
-
-    cy.intercept('POST', '/user/login').as('/login');
-
     cy.registerNewUser().then(user => {
-      cy.findByPlaceholder('Email')
-        .type(user.email);
-
-      cy.findByPlaceholder('Password')
-        .type(user.password + '{enter}')
+      cy.request('POST', '/users/login', {
+        user: {
+          email: user.email,
+          password: user.password
+        }
+      })
+        .then(response => {
+          cy.setCookie('drash_sess', response.body.user.token);
+        });
     });
-
-    cy.wait('@login');
-
-    cy.visit('/settings');
   });
 });
