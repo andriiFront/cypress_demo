@@ -19,6 +19,22 @@ describe('Sign in page', () => {
     cy.get('.error-messages').should('contain.text', `password can't be blank`);
   });
 
+  it('should show an error for wrong email', () => {
+    cy.registerNewUser().then(user => {
+      cy.findByPlaceholder('Email').type('mail@mail.com');
+      cy.findByPlaceholder('Password').type(user.password + '{enter}');
+      cy.get('.error-messages').should('contain.text', 'email or password is invalid');
+    });
+  });
+
+  it('should show an error for wrong password', () => {
+    cy.registerNewUser().then(user => {
+      cy.findByPlaceholder('Email').type(user.email);
+      cy.findByPlaceholder('Password').type('123');
+      cy.get('.error-messages').should('contain.text', 'email or password is invalid');
+    });
+  });
+
   it('should allow an existing user to log in', () => {
     cy.registerNewUser().then(user => {
       cy.findByPlaceholder('Email').type(user.email);

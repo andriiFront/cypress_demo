@@ -26,17 +26,16 @@
 
 const { generateUser } = require('./generate');
 
+Cypress.Commands.add('findByTestId', testId => {
+  cy.get(`[data-cy = "${testId}]`)
+});
+
 Cypress.Commands.add('findByPlaceholder', (placeholder) => {
   cy.get(`[placeholder = "${placeholder}"]`);
 });
 
 Cypress.Commands.overwrite('visit', (originalFn, url, options) => {
   originalFn('/#' + url, options);
-});
-
-Cypress.Commands.add('assertPageUrl', (url) => {
-  cy.url()
-    .should('equal', Cypress.config().baseUrl + '/#' + url);
 });
 
 Cypress.Commands.add('registerNewUser', () => {
@@ -49,6 +48,16 @@ Cypress.Commands.add('registerNewUser', () => {
     }));
 });
 
-Cypress.Commands.add('findByTestId', testId => {
-  cy.get(`[data-cy = "${testId}]`)
+Cypress.Commands.add('assertPageUrl', (url) => {
+  cy.url()
+    .should('equal', Cypress.config().baseUrl + '/#' + url);
 });
+
+Cypress.Commands.add('assertAthorized', (username) => {
+  cy.findByTestId()
+    .should('contain.text', username);
+});
+
+
+
+

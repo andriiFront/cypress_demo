@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+const { generateUser } = require("../support/generate");
+
 describe('Sign Up page', () => {
   beforeEach(() => {
     cy.visit('/register')
@@ -24,7 +26,6 @@ describe('Sign Up page', () => {
     cy.findByPlaceholder('Username').type('user@mail.com' + '{enter}');
     cy.get('.error-messages').should('contain.text', `password can't be blank`);
   });
-
 
   it('should allow to register a new user', () => {
     const { email, password, username } = generateUser();
