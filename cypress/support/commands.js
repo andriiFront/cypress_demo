@@ -58,6 +58,9 @@ Cypress.Commands.add('assertAthorized', (username) => {
     .should('contain.text', username);
 });
 
-
-
-
+Cypress.Commands.add('login', (user) => {
+  cy.request('POST', '/users/login', { user })
+    .then(response => {
+      cy.setCookie('drash_sess', response.body.user.token)
+    });
+});
