@@ -2,41 +2,28 @@
 
 describe('Home page', () => {
   beforeEach(() => {
-    cy.visit('/')
+    cy.visit('/');
   });
 
-  it('should contain main parts', () => {
-    cy.get('h1')
-      .should('contain.text', 'conduit');
-
-    cy.contains('a', 'Global Feed')
-      .should('exist');
-
-    cy.contains('.sidebar', 'Popular Tags')
-      .should('exist');
+  it('should have a correct title', () => {
+    cy.get('h1').should('contain.text', 'conduit');
   });
 
-  it('should open Sign In page', () => {
+  it('should have a feed', () => {
+    cy.contains('a', 'Global Feed').should('exist');
+  });
+
+  it('should have a sidebar with tags', () => {
+    cy.contains('.sidebar', 'Popular Tags').should('exist');
+  });
+
+  it('should have a link to Sign in page', () => {
     cy.contains('a', 'Sign in')
-      .should('exist')
-      .click();
-
-    cy.url()
-      .should('include', '/login');
-
-    cy.get('h1')
-      .should('contain.text', 'Sign In');
+      .should('have.attr', 'href', '#/login')
   });
-
-  it('should open Sign Up page', () => {
+ 
+  it('should have a link to Sign up page', () => {
     cy.contains('a', 'Sign up')
-      .should('exist')
-      .click();
-
-    cy.url()
-      .should('include', '/register');
-
-    cy.get('h1')
-      .should('contain.text', 'Sign Up')
+      .should('have.attr', 'href', '#/register')
   });
 });
