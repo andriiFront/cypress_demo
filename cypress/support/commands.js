@@ -46,6 +46,9 @@ Cypress.Commands.add('registerNewUser', () => {
     .then(response => ({
       ...response.body.user,
       ...user 
-    })
-  );
+    }));
+});
+
+Cypress.Commands.add('findByTestId', testId => {
+  cy.get(`[data-cy = "${testId}]`)
 });
