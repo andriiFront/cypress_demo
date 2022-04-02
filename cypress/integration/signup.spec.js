@@ -26,28 +26,22 @@ describe('Sign Up page', () => {
     cy.assertPageUrl('/');
   });
 
-  it('should not allow to register with  an existing email', () => {
-    const { email, password, username } = generateUser();
+  it('should not allow to register with an existing email', () => {
+    cy.registerNewUser().then(user => {
+      cy.findByPlaceholder('Username')
+      .type(user.username);
 
-    cy.request('POST', '/users', {
-      email,
-      username,
-      password
+      cy.findByPlaceholder('Email')
+        .type(user.email);
+
+      cy.findByPlaceholder('Password')
+        .type(user.password);
+
+      cy.contains('.btn', 'Sign up')
+        .click();
+
+      cy.get('.swal-modal')
+        .should('contain.text', 'Email already taken.');
     });
-
-    cy.findByPlaceholder('Username')
-      .type(username);
-
-    cy.findByPlaceholder('Email')
-      .type(email);
-
-    cy.findByPlaceholder('Password')
-      .type(password);
-
-    cy.contains('.btn', 'Sign up')
-      .click();
-
-    cy.get('.swal-modal')
-      .should('contain.text', 'Email already taken.')
   });
 });
