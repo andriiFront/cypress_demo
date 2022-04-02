@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+const { generateUser } = require('./generate');
+
 Cypress.Commands.add('findByPlaceholder', (placeholder) => {
   cy.get(`[placeholder = "${placeholder}"]`);
 });
@@ -35,4 +37,15 @@ Cypress.Commands.overwrite('visit', (originalFn, url, options) => {
 Cypress.Commands.add('assertPageUrl', (url) => {
   cy.url()
     .should('equal', Cypress.config().baseUrl + '/#' + url);
+});
+
+Cypress.Commands.add('registerNewUser', () => {
+  const user = generateUser();
+
+  cy.request('POST', '/users', user)
+    .then(response => ({
+      ...response.body.user,
+      ...user 
+    })
+  );
 });
