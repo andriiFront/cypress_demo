@@ -14,13 +14,11 @@ describe('Settings page', () => {
     cy.get('h1').should('contain.text', 'Your Setings')
   });
 
-  it('should have a username and email in the form', () => {
-    cy.get('@user').then(user => {
-      cy.findByPlaceholder('Your username')
-        .should('have.value', user.username);
+  it('should have a username and email in the form', function() {
+    cy.findByPlaceholder('Your username')
+      .should('have.value', this.user.username);
 
-      cy.findByPlaceholder('Email')
-        .should('have.value', user.email)
-    });
+    cy.findByPlaceholder('Email')
+      .should('have.value', this.user.email);
   });
 });
