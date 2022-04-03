@@ -1,0 +1,25 @@
+{
+  "articles": [
+    {
+      "id": 4,
+      "author_id": 940,
+      "title": "fugiat set...",
+      "description": "Quaretat aut adipisci...",
+      "favorited": false,
+      "favoritesCount": 0,
+      "body": "exercitationeri adipisci/nAspiores",
+      "tags": "",
+      "slug": "fugitat-sed-decimuseos-omnis",
+      "created_at": 0,
+      "updated_at": 0,
+      "author": {
+        "id": 940,
+        "username": "Mackenna_Collier65_5154",
+        "email": "Mackenna_Collier65_5154@mail.com",
+        "bio": "",
+        "image": "https://static.productionready.io/images/smyley_curus.jpg",
+        "token": null
+      }
+    }
+  ]
+}

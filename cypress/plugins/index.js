@@ -27,6 +27,9 @@ module.exports = (on, config) => {
       clear();
 
       return null;
+    },
+    'db:seed'(data) {
+      return seed(data);
     }
   });
 }

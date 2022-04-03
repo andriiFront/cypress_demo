@@ -2,7 +2,16 @@
 
 describe('Home page', () => {
   beforeEach(() => {
-    cy.visit('/');
+    cy.fixture('user').then(testUser => {
+      cy.task('db:clear');
+      cy.task('db:seed', {
+        users: [testUser]
+      });
+
+      cy.login(testUser);
+      cy.intercept('GET', '/articles?*', { fixture: 'articles.json' });
+      cy.visit('/');
+    });
   });
 
   it('should have a correct title', () => {
