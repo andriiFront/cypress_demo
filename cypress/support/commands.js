@@ -64,3 +64,9 @@ Cypress.Commands.add('login', (user) => {
       cy.setCookie('drash_sess', response.body.user.token)
     });
 });
+
+Cypress.Commands.add('loginAsNewUser', () => {
+  cy.registerNewUser().then(user => {
+    cy.login(user).then(() => user);
+  });
+});

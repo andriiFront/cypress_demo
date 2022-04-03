@@ -14,5 +14,6 @@ declare namespace Cypress {
     assertAthorized(username: string): Chainable<any>
     registerNewUser(): Chainable<User>
     login(): Chainable<any>
+    loginAsNewUser(): Chainable<any>
   }
 }
